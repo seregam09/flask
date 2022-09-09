@@ -1,0 +1,41 @@
+name: Flask application deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  PROJECT_NAME: /home/flask_app
+  ENV_NAME: flask
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: docker-practice/actions-setup-docker@master
+
+      - uses: actions/checkout@v3
+      
+      - uses: cuchi/jinja2-action@v1.2.0
+        with:
+          template: flask_env.py
+          output_file: flask_env.py
+          strict: true
+          variables: |
+            ADMIN_USER=admin
+            ADMIN_PASSWORD=pass
+            
+      - uses: cuchi/jinja2-action@v1.2.0
+        with:
+          template: main.py
+          output_file: main.py
+          strict: true
+          variables: |
+            FLASK_PORT=5000
+             
+      - run: |
+          sudo mkdir ${{ env.PROJECT_NAME }}
+          sudo cp main.py flask_env.py requirements.txt ${{ env.PROJECT_NAME }}
+          sudo ls -la ${{ env.PROJECT_NAME }}
