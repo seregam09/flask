@@ -40,4 +40,4 @@ def auth_form():
         return '<html><body> <form method=post >login:<input type=text name=user /><br/> password:<input type=password name=pasw /> <br /> <input type=submit /> </form> </body></html>'
 
 if __name__ == '__main__':
-  app.run(host="0.0.0.0", port={{FLASK_PORT}})
+  app.run(host="0.0.0.0", port=flask_env.flask_port)

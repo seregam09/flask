@@ -1,2 +1,3 @@
-admin_login = '{{ADMIN_USER}}'
-admin_password = '{{ADMIN_PASSWORD}}'
+admin_login = admin
+admin_password = secret_pass
+flask_port = 5000
